@@ -1,15 +1,15 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <!-- ぞのはここにページのレイアウトを書く -->
+  <UploadButton/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import UploadButton from './components/UploadButton.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    UploadButton,
   }
 }
 </script>
