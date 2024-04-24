@@ -2,58 +2,17 @@
   <!-- ぞのはここにページのレイアウトを書く -->
   <div>
     <header>
+      <div class="menu-button">&#9776;</div>
       <h1>PixShow</h1>
-      <p>Please</p>
       <UploadButton/>
-      <p>an image.</p>
     </header>
-
-    <div class="image-container">
-      <!-- 1段目 -->
-      <div class="image-upper">
-        <img
-          src="https://img.freepik.com/free-photo/black-man-angry-expression_1194-2570.jpg"
-          alt="Left Image Description"
-        />
-        <img
-          src="https://img.freepik.com/free-photo/black-man-angry-expression_1194-2570.jpg"
-          alt="Right Image Description"
-        />
-      </div>
+    <!--https://img.freepik.com/free-photo/black-man-angry-expression_1194-2570.jpg-->
+    <div class="content">
+      <img
+        src="https://i.daily.jp/gossip/2018/12/20/Images/f_11919224.jpg"
+        alt="Image Description"
+      />
     </div>
-
-    <div class="image-container">
-      <!-- 2段目 -->
-      <div class="image-middle">
-        <img
-          src="https://img.freepik.com/free-photo/black-man-angry-expression_1194-2570.jpg"
-          alt="Left Image Description"
-        />
-        <img
-          src="https://img.freepik.com/free-photo/black-man-angry-expression_1194-2570.jpg"
-          alt="Center Image Description"
-        />
-        <img
-          src="https://img.freepik.com/free-photo/black-man-angry-expression_1194-2570.jpg"
-          alt="Right Image Description"
-        />
-      </div>
-    </div>
-
-    <div class="image-container">
-      <!-- 3段目 -->
-      <div class="image-lower">
-        <img
-          src="https://img.freepik.com/free-photo/black-man-angry-expression_1194-2570.jpg"
-          alt="Left Image Description"
-        />
-        <img
-          src="https://img.freepik.com/free-photo/black-man-angry-expression_1194-2570.jpg"
-          alt="Right Image Description"
-        />
-      </div>
-    </div>
-    <UploadButton />
   </div>
 </template>
 
@@ -69,50 +28,57 @@ export default {
 </script>
 
 <style>
-body {
-  background-color: #000000;
-  text-align: center;
-}
+      body,
+      html {
+        overflow: hidden;
+        background-color: #05294f;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
 
-header {
-  background-color: #272727;
-  color: #fff;
-  padding: 5px;
-  text-align: center;
-  p,
-  a {
-    display: inline;
-  }
-  a {
-    color: #fc7bef;
-  }
-}
+      header {
+        background-color: #272727;
+        color: #fff;
+        text-align: center;
+        padding: 1%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-img {
-  width: 240px;
-  height: 240px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 100%;
-  transition: transform 0.3s; /* 変形のアニメーション効果を追加 */
-}
-.image-container {
-  display: flex;
-  justify-content: center;
-  overflow-x: auto; /* 横方向のスクロールを有効にする */
-  white-space: nowrap;
-}
+      .menu-button {
+        font-size: 28px;
+        cursor: pointer;
+        margin-left: 1%;
+      }
 
-.image-upper img,
-.image-middle img,
-.image-lower img {
-  margin: 0 24px;
-  margin-top: 24px;
-  margin-bottom: 24px;
-}
+      .upload-button {
+        background-color: #ffffff;
+        color: #000000;
+        border: none;
+        padding: 6px 9px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 1%;
+      }
 
-/* 画像にマウスが触れたときの変形 */
-img:hover {
-  transform: scale(1.2); /* 画像を1.2倍に拡大 */
-}
+      .upload-button:hover {
+        background-color: #bdbdbd;
+        color: #000000;
+      }
+
+      .content {
+        display: flex;
+        justify-content: center; /* コンテナ要素を横方向に中央揃え */
+        align-items: center; /* コンテナ要素を垂直方向に中央揃え */
+        height: calc(100vh - 100px); /* ヘッダーを除いた部分の高さ */
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+      }
 </style>
