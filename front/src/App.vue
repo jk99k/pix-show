@@ -4,7 +4,7 @@
     <header>
       <h1>PixShow</h1>
       <p>Please</p>
-      <a href="UploadButton.vue">upload</a> <!-- 山代のUploadButton.vueはここ? -->
+      <UploadButton/>
       <p>an image.</p>
     </header>
 
@@ -64,7 +64,7 @@ export default {
   name: "App",
   components: {
     UploadButton,
-  },
+},
 };
 </script>
 
