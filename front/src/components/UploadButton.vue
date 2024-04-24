@@ -1,15 +1,29 @@
 <template>
-    <button>
-        <!-- 【山代】ボタンのデザインはここ -->
+    <button @click="handleClick">
+        Click me
     </button>
 </template>
-
+  
 <script>
-export default  {
-    name: 'UploadButton',
-}
+    export default {
+        methods: {
+            handleClick() {
+            // ボタンがクリックされたときの処理を記述する
+            console.log('Button clicked!');
+            }
+        }
+    }
 </script>
-
+  
 <style>
-    /*【山代】ボタンのデザインはここ */
+  /* ボタンのスタイルを記述する */
+  button {
+    background-color: yellowgreen;
+    color: purple;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 </style>
+  
