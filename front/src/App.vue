@@ -8,21 +8,20 @@
     </header>
     <!--https://img.freepik.com/free-photo/black-man-angry-expression_1194-2570.jpg-->
     <div class="content">
-      <img
-        src="https://i.daily.jp/gossip/2018/12/20/Images/f_11919224.jpg"
-        alt="Image Description"
-      />
+      <ImageDisplay/>
     </div>
   </div>
 </template>
 
 <script>
+import ImageDisplay from "./components/ImageDisplay.vue";
 import UploadButton from "./components/UploadButton.vue";
 
 export default {
   name: "App",
   components: {
     UploadButton,
+    ImageDisplay,
 },
 };
 </script>
