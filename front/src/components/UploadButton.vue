@@ -1,6 +1,6 @@
 <template>
     <!-- <button @click="handleClick" class="cool-button">Click me</button> -->
-
+<!-- 
     <label v-if="!value" class="upload-content-space user-photo default">
         <input ref="file" class="file-button" type="file" @change="upload" />
         Do Upload
@@ -8,6 +8,18 @@
 
     <div>
         <label class="upload-content-space user-photo">
+            <input ref="file" class="file-button" type="file" @change="upload" />
+            <img class="user-photo-image" :src="value" />
+        </label>
+    </div> -->
+
+    <label v-if="!value" class="upload-content-space user-photo default" style="width: 221px; height: 225px; border-radius: 39px; background: #D9D9D9;">
+        <input ref="file" class="file-button" type="file" @change="upload" />
+        Do Upload
+    </label>
+
+    <div>
+        <label class="upload-content-space user-photo" style="width: 221px; height: 225px; border-radius: 39px; background: #D9D9D9;">
             <input ref="file" class="file-button" type="file" @change="upload" />
             <img class="user-photo-image" :src="value" />
         </label>
@@ -28,7 +40,7 @@
     //     console.log('Button clicked!');
     //   }
 
-        async upload(event) {
+        async upload(event) {//ボタンを押すとchange eventを拾ってuproad methodが呼ばれる→event情報から取得したfile情報を取得・checkFile methodに渡してチェックする
             const files = event.target.files || event.dataTransfer.files;
             const file = files[0];
 
@@ -41,7 +53,7 @@
 
                 // サーバーにフォームデータを送信
                 try {
-                    const response = await fetch('/upload', 
+                    const response = await fetch('localhost:8000/upload', 
                     {
                         method: 'POST',
                         body: formData
@@ -59,7 +71,7 @@
                 }
             }
         },
-        getBase64(file){
+        getBase64(file){//checkfileでfileデータが問題ないとされた時、ここでFileReaderのインスタンスメソッドを利用してエンコードをする
             return new Promise((resolve, reject) => {
                 const reader = new FileReader()
                 reader.readAsDataURL(file)
@@ -67,7 +79,7 @@
                 reader.onerror = error => reject(error)
             })
         },
-        checkFile(file){
+        checkFile(file){//ファイルのサイズが5MBより大きいか小さいかで処理を分ける
             let result = true
             const SIZE_LIMIT = 5000000
             
