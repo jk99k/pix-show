@@ -2,6 +2,7 @@ import os
 import shutil
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -9,6 +10,14 @@ app = FastAPI()
 
 # アップロードされた写真を保存するディレクトリのパス
 upload_dir = "./uploads"
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # 静的ファイルへのパスにアクセスすることで画像を閲覧することができるように
 app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
