@@ -1,7 +1,7 @@
 <template>
   <label v-if="!value" class="upload-content-space user-photo default">
       <input ref="file" class="file-button" type="file" @change="upload" />
-      Do upload testdesign
+      Upload
   </label>
 
   <div>
