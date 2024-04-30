@@ -1,29 +1,15 @@
 <template>
-    <label v-if="!value" class="upload-content-space user-photo default">
-        <input ref="file" class="file-button" type="file" @change="upload" />
-        Do upload testdesign
-    </label>
+  <label v-if="!value" class="upload-content-space user-photo default">
+      <input ref="file" class="file-button" type="file" @change="upload" />
+      Do upload testdesign
+  </label>
 
-    <div>
-        <label class="upload-content-space user-photo">
-            <input ref="file" class="file-button" type="file" @change="upload" />
-            <img class="user-photo-image" :src="value" />
-        </label>
-    </div>
-
-  <!-- <div>
-    <label v-if="!value" class="upload-content-space user-photo default" style="width: 110px; height: 112.5px; border-radius: 19.5px; background: #D9D9D9;">
-        <input ref="file" class="file-button" type="file" @change="upload" />
-        Do Upload
-    </label>
-
-    <div>
-        <label class="upload-content-space user-photo" style="width: 110px; height: 112.5px; border-radius: 19.5px; background: #D9D9D9;">
-            <input ref="file" class="file-button" type="file" @change="upload" />
-            <img class="user-photo-image" :src="value" />
-        </label>
-    </div>
-  </div> -->
+  <div>
+      <label class="upload-content-space user-photo">
+          <input ref="file" class="file-button" type="file" @change="upload" />
+          <img class="user-photo-image" :src="value" />
+      </label>
+  </div>
 </template>
   
 <script>
@@ -55,7 +41,7 @@
 
                 // サーバーにフォームデータを送信
                 try {
-                    const response = await fetch('localhost:8000/upload', 
+                    const response = await fetch('http://localhost:8000/upload', 
                     {
                         method: 'POST',
                         body: formData
