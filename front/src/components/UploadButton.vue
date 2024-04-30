@@ -37,11 +37,11 @@
 
                 // フォームデータを作成
                 const formData = new FormData();
-                formData.append('image', file); // 'image' はサーバー側でファイルを受け取るためのキー名
+                formData.append('files', file); // 'image' はサーバー側でファイルを受け取るためのキー名
 
                 // サーバーにフォームデータを送信
                 try {
-                    const response = await fetch('http://localhost:8000/upload', 
+                    const response = await fetch('http://localhost:8000/', 
                     {
                         method: 'POST',
                         body: formData
