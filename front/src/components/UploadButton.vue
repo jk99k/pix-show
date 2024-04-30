@@ -1,17 +1,15 @@
 <template>
-    <!-- <button @click="handleClick" class="cool-button">Click me</button> -->
+  <label v-if="!value" class="upload-content-space user-photo default">
+      <input ref="file" class="file-button" type="file" @change="upload" />
+      Upload
+  </label>
 
-    <label v-if="!value" class="upload-content-space user-photo default">
-        <input ref="file" class="file-button" type="file" @change="upload" />
-        Do Upload
-    </label>
-
-    <div>
-        <label class="upload-content-space user-photo">
-            <input ref="file" class="file-button" type="file" @change="upload" />
-            <img class="user-photo-image" :src="value" />
-        </label>
-    </div>
+  <div>
+      <label class="upload-content-space user-photo">
+          <input ref="file" class="file-button" type="file" @change="upload" />
+          <img class="user-photo-image" :src="value" />
+      </label>
+  </div>
 </template>
   
 <script>
@@ -20,28 +18,30 @@
     props: {
         value: {
             type: String,
-            default: NonNullable
+            default: ''
         }
     },
+
     methods: {
     //   handleClick() {
     //     console.log('Button clicked!');
     //   }
 
-        async upload(event) {
+        async upload(event) {//ボタンを押すとchange eventを拾ってuproad methodが呼ばれる→event情報から取得したfile情報を取得・checkFile methodに渡してチェックする
             const files = event.target.files || event.dataTransfer.files;
             const file = files[0];
 
             if (this.checkFile(file)) {
                 const picture = await this.getBase64(file);
+                this.$emit('input', picture);
 
                 // フォームデータを作成
                 const formData = new FormData();
-                formData.append('image', file); // 'image' はサーバー側でファイルを受け取るためのキー名
+                formData.append('files', file); // 'image' はサーバー側でファイルを受け取るためのキー名
 
                 // サーバーにフォームデータを送信
                 try {
-                    const response = await fetch('/upload', 
+                    const response = await fetch('http://localhost:8000/', 
                     {
                         method: 'POST',
                         body: formData
@@ -59,7 +59,7 @@
                 }
             }
         },
-        getBase64(file){
+        getBase64(file){//checkfileでfileデータが問題ないとされた時、ここでFileReaderのインスタンスメソッドを利用してエンコードをする
             return new Promise((resolve, reject) => {
                 const reader = new FileReader()
                 reader.readAsDataURL(file)
@@ -67,7 +67,7 @@
                 reader.onerror = error => reject(error)
             })
         },
-        checkFile(file){
+        checkFile(file){//ファイルのサイズが5MBより大きいか小さいかで処理を分ける
             let result = true
             const SIZE_LIMIT = 5000000
             
@@ -88,31 +88,52 @@
   }
 </script>
   
-<style>
-  .cool-button {
-/*     
-    background-color: green;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    border-radius: 8px;
-    */
+<style scoped>
+.user-photo {
+  cursor: pointer;
+  outline: none;
+}
 
-    border-radius: 39px;
-    background: #D9D9D9;
-    width: 221px;
-    height: 225px;
-  }
-  
-  .cool-button:hover {
-    background-color: #45a049; /* Darker Green */
-  }
+.user-photo.default {
+  align-items: center;
+  background-color: #0074fb;
+  border: 1px solid #0051b0;
+  border-radius: 2px;
+  box-sizing: border-box;
+  display: inline-flex;
+  font-weight: 600;
+  justify-content: center;
+  letter-spacing: 0.3px;
+  color: #fff;
+  height: 4rem;
+  padding: 0 1.6rem;
+  max-width: 177px;
+}
+
+.user-photo.default:hover {
+  background-color: #4c9dfc;
+}
+
+.user-photo.default:active {
+  background-color: #0051b0;
+}
+
+.user-photo-image {
+  max-width: 85px;
+  display: block;
+}
+
+.user-photo-image:hover {
+  opacity: 0.8;
+}
+
+.file-button {
+  display: none;
+}
+
+.uploaded {
+  align-items: center;
+  display: flex;
+}
 </style>
   
