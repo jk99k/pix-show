@@ -12,34 +12,35 @@ import { ref, onMounted, watch } from 'vue'
 const image = ref('') // 画像のURLを格納するリファレンス
 let currentIndex = 0; // 現在の画像のインデックス
 const showImage = ref(false); // 画像を表示するかどうかのフラグ
-const interval = 5000; // 画像を切り替える間隔
+const interval = 8000; // 画像を切り替える間隔
+const images = ref([]); // 画像の配列
 
-// サーバーから画像を取得して表示する関数
-const fetchAndDisplayImage = () => {
-  try {
-    // サーバーから画像のURLを取得するためのリクエストを送信
-    fetch('http://127.0.0.1:8000')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch image');
-        }
-        // レスポンスから JSON データを取得
-        return response.json();
-      })
-      .then(data => {
-        // JSON データから次の画像の URL を取得してセット
-        const nextImageUrl = data.files[currentIndex];
-        image.value = `http://localhost:8000/uploads/${nextImageUrl}`;
-        // 次の画像のインデックスを更新する
-        currentIndex = (currentIndex + 1) % data.files.length;
-      })
-      .catch(error => {
-        console.error('Error fetching image:', error);
-      });
-  } catch (error) {
-    console.error('Error fetching image:', error);
-  }
-}
+// コンポーネントがマウントされたときに画像を取得して表示する
+onMounted(() => {
+  // サーバーから画像の配列を取得するためのリクエストを送信
+  fetch('http://127.0.0.1:8000')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch images');
+      }
+      // レスポンスから JSON データを取得
+      return response.json();
+    })
+    .then(data => {
+      // 画像の配列を更新
+      images.value = data.files.map(file => `http://localhost:8000/uploads/${file}`);
+      // 最初の画像を表示
+      image.value = images.value[currentIndex];
+      // 8秒ごとに次の画像を表示
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.value.length;
+        image.value = images.value[currentIndex];
+      }, interval);
+    })
+    .catch(error => {
+      console.error('Error fetching images:', error);
+    });
+})
 
 // 監視: imageの変更を監視し、新しい画像が読み込まれた後に古い画像を表示する
 watch(image, () => {
@@ -47,13 +48,6 @@ watch(image, () => {
   setTimeout(() => {
     showImage.value = false;
   }, interval - 750);
-})
-
-// コンポーネントがマウントされたときに画像を取得して表示する
-onMounted(() => {
-  fetchAndDisplayImage();
-  // 8秒ごとに次の画像を取得して表示する
-  setInterval(fetchAndDisplayImage, interval);
 })
 </script>
 
@@ -78,4 +72,3 @@ onMounted(() => {
   transform: translateX(-20px);
 }
 </style>
-
