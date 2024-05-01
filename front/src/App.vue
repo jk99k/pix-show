@@ -80,10 +80,4 @@ header {
   height: calc(100vh - 60px); /* 画面の高さからヘッダーの高さを引いた値 */
 }
 
-img {
-  max-width: 100%;
-  max-height: calc(100% - 60px); /* 画像の高さを画面の高さからヘッダーの高さを引いた値に制限 */
-  object-fit: contain;
-  object-position: center;
-}
 </style>

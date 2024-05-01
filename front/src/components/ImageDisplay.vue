@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition name="slide-fade">
-      <img v-if="showImage" :src="image" alt="Server Image" :key="currentIndex">
+      <img class="display-image" v-if="showImage" :src="image" alt="Server Image" :key="currentIndex">
     </transition> 
   </div>
 </template>
@@ -58,6 +58,13 @@ onMounted(() => {
 </script>
 
 <style>
+.display-image {
+  max-width: 100%;
+  max-height: calc(100% - 60px); /* 画像の高さを画面の高さからヘッダーの高さを引いた値に制限 */
+  object-fit: contain;
+  object-position: center;
+}
+
 .slide-fade-enter-active {
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
