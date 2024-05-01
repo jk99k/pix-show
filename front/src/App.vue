@@ -2,7 +2,7 @@
   <!-- ぞのはここにページのレイアウトを書く -->
   <div>
     <header>
-      <div class="menu-button">&#9776;</div>
+      <div class="menu-button">&#9776;</div>      <!-- '&#9776;' ハンバーガーアイコン -->
       <h1>PixShow</h1>
       <UploadButton/>
     </header>
@@ -27,57 +27,63 @@ export default {
 </script>
 
 <style>
-      body,
-      html {
-        overflow: hidden;
-        background-color: #05294f;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-      }
+body,
+html {
+  overflow: hidden;
+  background-color: #05294f;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
 
-      header {
-        background-color: #272727;
-        color: #fff;
-        text-align: center;
-        padding: 1%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #272727;
+  color: #fff;
+  text-align: center;
+  padding: 1%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
 
-      .menu-button {
-        font-size: 28px;
-        cursor: pointer;
-        margin-left: 1%;
-      }
+.menu-button {
+  font-size: 28px;
+  cursor: pointer;
+  margin-left: 1%;
+}
 
-      .upload-button {
-        background-color: #ffffff;
-        color: #000000;
-        border: none;
-        padding: 6px 9px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-right: 1%;
-      }
+.upload-button {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 6px 9px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 1%;
+}
 
-      .upload-button:hover {
-        background-color: #bdbdbd;
-        color: #000000;
-      }
+.upload-button:hover {
+  background-color: #bdbdbd;
+  color: #000000;
+}
 
-      .content {
-        display: flex;
-        justify-content: center; /* コンテナ要素を横方向に中央揃え */
-        align-items: center; /* コンテナ要素を垂直方向に中央揃え */
-        height: calc(100vh - 100px); /* ヘッダーを除いた部分の高さ */
-      }
+.content {
+  margin-top: 60px; /* ヘッダーの高さ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px); /* 画面の高さからヘッダーの高さを引いた値 */
+}
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center;
-      }
+img {
+  max-width: 100%;
+  max-height: calc(100% - 60px); /* 画像の高さを画面の高さからヘッダーの高さを引いた値に制限 */
+  object-fit: contain;
+  object-position: center;
+}
 </style>
