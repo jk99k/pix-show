@@ -22,7 +22,7 @@ app.add_middleware(
 )
 
 # 静的ファイルへのパスにアクセスすることで画像を閲覧することができるように
-app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
+app.mount("/api/uploads", StaticFiles(directory=upload_dir), name="uploads")
 
 # アップロードされた写真を保存する関数
 def save_uploaded_file(upload_dir: str, upload_file: UploadFile) -> None:
@@ -51,7 +51,7 @@ def save_uploaded_file(upload_dir: str, upload_file: UploadFile) -> None:
         upload_file.file.close()
 
 # 複数のファイルを受け取るエンドポイント
-@app.post(path="/")       
+@app.post(path="/api")       
 async def upload_files(files: list[UploadFile] = File(default=...)) -> JSONResponse:
     if not os.path.exists(path=upload_dir):
         os.makedirs(name=upload_dir)
@@ -67,7 +67,7 @@ async def upload_files(files: list[UploadFile] = File(default=...)) -> JSONRespo
     
     
 # ファイルへのパスを配信するエンドポイント
-@app.get(path="/")
+@app.get(path="/api")
 def get_file_path() -> JSONResponse:
     if not os.path.exists(path=upload_dir):
         raise HTTPException(status_code=404, detail="No files uploaded yet.")
