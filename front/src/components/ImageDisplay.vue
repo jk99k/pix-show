@@ -7,7 +7,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue';
+import API_URL from '../url';
 
 const image = ref('') // 画像のURLを格納するリファレンス
 let currentIndex = 0; // 現在の画像のインデックス
@@ -18,7 +19,7 @@ const images = ref([]); // 画像の配列
 // コンポーネントがマウントされたときに画像を取得して表示する
 onMounted(() => {
   // サーバーから画像の配列を取得するためのリクエストを送信
-  fetch('http://127.0.0.1:8000')
+  fetch(`${API_URL}`)
     .then(response => {
       if (!response.ok) {
         throw new Error('Failed to fetch images');
@@ -28,7 +29,7 @@ onMounted(() => {
     })
     .then(data => {
       // 画像の配列を更新
-      images.value = data.files.map(file => `http://localhost:8000/uploads/${file}`);
+      images.value = data.files.map(file => `${API_URL}/uploads/${file}`);
       // 最初の画像を表示
       image.value = images.value[currentIndex];
       // 8秒ごとに次の画像を表示
