@@ -6,7 +6,8 @@
   </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue'
+  import { onMounted, ref } from 'vue';
+import API_URL from '../url';
   
   const image = ref('') // 画像のURLを格納するリファレンス
   let currentIndex = 0; // 現在の画像のインデックス
@@ -15,7 +16,7 @@
   const fetchAndDisplayImage = () => {
     try {
       // サーバーから画像のURLを取得するためのリクエストを送信
-      fetch('http://127.0.0.1:8000')
+      fetch(`${API_URL}`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Failed to fetch image');
@@ -26,7 +27,7 @@
         .then(data => {
           // JSON データから次の画像の URL を取得してセット
           const nextImageUrl = data.files[currentIndex];
-          image.value = `http://localhost:8000/uploads/${nextImageUrl}`;
+          image.value = `${API_URL}/uploads/${nextImageUrl}`;
           // 次の画像のインデックスを更新する
           currentIndex = (currentIndex + 1) % data.files.length;
         })
