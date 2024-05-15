@@ -13,6 +13,7 @@
 </template>
   
 <script>
+import API_URL from '../url';
   export default {
     name: 'UploadButton',
     props: {
@@ -41,7 +42,7 @@
 
                 // サーバーにフォームデータを送信
                 try {
-                    const response = await fetch('http://localhost:8000/', 
+                    const response = await fetch(`${API_URL}`, 
                     {
                         method: 'POST',
                         body: formData
